@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SalesWebMVC.Models;
 using SalesWebMVC.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace SalesWebMVC.Services {
     public class DepartmentService {
@@ -12,11 +13,11 @@ namespace SalesWebMVC.Services {
         public DepartmentService(SalesWebMVCContext context) {
             _context = context;
         }
-        public List<Department> FindAll() {
-            return _context.Department.OrderBy(x => x.Name).ToList();
+        public async Task<List<Department>> FindAllAsync() {
+            return await _context.Department.OrderBy(x => x.Name).ToListAsync();
         }
 
-        public void Insert(Department department) {
+        public void InsertAsync(Department department) {
             _context.Add(department);
             _context.SaveChanges();
         }
